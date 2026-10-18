@@ -29,7 +29,7 @@
 - 動作対象: PC・スマホのモダンブラウザ（Chrome / Edge / Safari 最新版）
 - 必要なランタイム・バージョン: Node.js 20 以上（開発時のみ。本番は静的ファイル）
 - 公開方法: main ブランチへの push で自動デプロイ。手動アップロードはしない
-- 本番URL: https://minigamesuite.saito-kodomopg.workers.dev/（Cloudflare 接続後に確定）
+- 本番URL: https://minigamesuite.saito-kodomopg.workers.dev/
 
 ## コマンド
 
@@ -132,14 +132,18 @@ export type MiniGame = {
 - **デプロイ／設定されるもの**: ビルド成果物のみ。設定は `wrangler.jsonc`
   （`name: minigamesuite`、SPA 用に `assets.not_found_handling: single-page-application`。
   未設定だと `/games/renda` への直リンクが 404 になる）
-- **トリガー**: `main` への push で本番公開。他ブランチへの push でプレビュー URL を発行
+- **トリガー**: `main` への push（PR のマージ）で本番公開。本家の他ブランチへの push でプレビュー URL を発行。
+  **フォークのブランチはビルドされないため、生徒の PR にはプレビュー URL が出ない**（ADR 0002）
 - **接続方法**: Cloudflare 管理画面で GitHub リポジトリをつなぐ（先生が一度だけ操作）
 - **関与するタイミング**: ページを最初に開く瞬間だけ。遊んでいる間の処理はすべてブラウザ内
 
 ### GitHub
 
 - **役割**: `saitokodomopg/MiniGameSuite`（Public）。ソースの置き場と PR
-- **運用**: 作業ブランチ → push → PR → 先生がマージ
+- **運用**: 生徒はフォーク → 作業ブランチ → 自分のフォークに push → 本家の `main` へ PR → 先生がマージ（ADR 0002）
+- **権限**: 本家に書き込めるのは先生だけ。生徒には collaborator 権限を渡さない
+- **PR の確認**: 生徒は手元で `npm run dev` とテスト・型チェック・lint を通してから PR を出す。
+  先生は必要なら `gh pr checkout <PR番号>` で手元に取ってきて確認する
 
 ## 制約・前提
 

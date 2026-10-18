@@ -5,8 +5,8 @@
 
 **完成の目安**
 
-> 自分の作業ブランチを push して、そこで出るプレビュー URL をブラウザで開き、
-> 一覧から自分のゲームを選んで最後まで遊べれば完成。
+> 自分のパソコンで一覧から自分のゲームを選んで最後まで遊べて、
+> テスト・型チェック・lint が通り、本家に PR を出せたら完成。
 > **main へのマージは含みません**（先生が取り込みます）。
 
 ## 守ること
@@ -15,7 +15,34 @@
 - 自分で作っていない画像・音を使うときは、先に先生に確認し、`docs/credits.md` に出典を書く
 - さわってよいのは `src/games/自分のid/` と、`src/games/index.ts` の自分の1行だけ
 
+## 0. はじめに1回だけ：フォークして手元にコピーする
+
+フォークは、本家のリポジトリを自分の GitHub アカウントにコピーしたもの。
+本家には直接書き込めないので、自分のフォークで作業して、できたら本家に PR（変更を取り込んでもらうお願い）を出します。
+
+1. https://github.com/saitokodomopg/MiniGameSuite を開き、右上の **Fork** を押す（設定は変えずに **Create fork**）
+2. 自分のフォークをパソコンにコピーして、本家を `upstream` という名前で登録する
+
+```bash
+git clone https://github.com/自分のアカウント/MiniGameSuite.git
+cd MiniGameSuite
+git remote add upstream https://github.com/saitokodomopg/MiniGameSuite.git
+npm install
+```
+
+- `origin` … 自分のフォーク。push する先
+- `upstream` … 本家。最新を受け取るだけ（push はできない）
+
 ## 1. コードを書く
+
+作り始める前に、本家の最新を取り込んで作業ブランチを切る。
+ほかの人のゲームが増えているかもしれないため。
+
+```bash
+git switch main
+git pull upstream main
+git switch -c feature/game-自分のid
+```
 
 `src/games/renda/`（10秒れんだ）をお手本にします。
 
@@ -61,7 +88,8 @@ import './janken/index.ts'
 npm run dev
 ```
 
-表示された URL（`http://localhost:5173/`）を開き、一覧に自分のゲームが出て、遊べるか確かめる。
+表示された URL（`http://localhost:5173/`）を開き、一覧から自分のゲームを選んで、最後まで遊べるか確かめる。
+フォークからの PR ではプレビュー URL（確認用の公開ページ）が出ないので、**ここが動作確認の本番**です。
 
 push の前に、チェックがすべて通ることを確かめる。
 
@@ -71,17 +99,39 @@ npm run typecheck
 npm run lint
 ```
 
-## 3. push してプレビュー URL で確かめる
+## 3. フォークに push して、本家に PR を出す
 
 ```bash
-git checkout -b feature/game-自分のid
 git add src/games/自分のid src/games/index.ts
 git commit -m "feat: ゲーム「〇〇」を追加"
 git push -u origin feature/game-自分のid
 ```
 
-1. GitHub に出る「Compare & pull request」から PR（変更を取り込んでもらうお願い）を作る
-2. PR の画面に Cloudflare がプレビュー URL を書き込むので、それを開く
-3. 一覧から自分のゲームを選んで、最後まで遊べることを確かめる
+1. 自分のフォークのページに出る「Compare & pull request」を押す
+2. 送り先が **`saitokodomopg/MiniGameSuite` の `main`** になっているか確かめる
+3. 「Allow edits by maintainers」にチェックを入れる（先生が小さな修正を足せるようにするため）
+4. PR の説明のチェックリストを埋めて、PR を作る
 
-**これができれば完成です。**
+**これができれば完成です。** あとは先生がマージすると、本番 URL に公開されます。
+
+## こまったとき：PR が「コンフリクト」になった
+
+みんなが `src/games/index.ts` に1行ずつ足すので、先にほかの人の PR が取り込まれると、
+同じ場所がぶつかって「コンフリクト」と表示されることがあります。本家の最新を取り込んで直します。
+
+```bash
+git switch feature/game-自分のid
+git pull upstream main
+```
+
+`src/games/index.ts` を開き、`<<<<<<<` `=======` `>>>>>>>` の印を消して、
+**ほかの人の行と自分の行を両方残す**。保存したら、チェックをしてから push し直す。
+
+```bash
+npm run test
+git add src/games/index.ts
+git commit -m "fix: 本家の最新を取り込む"
+git push
+```
+
+PR は自動で更新されます。新しく作り直す必要はありません。

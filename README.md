@@ -25,7 +25,8 @@ npm run typecheck
 npm run lint
 ```
 
-main に push すると、Cloudflare Workers で自動的に公開されます。
+本家の main に PR がマージされると、Cloudflare Workers で自動的に公開されます。
+生徒は自分のフォークから PR を出します（手順は [src/games/README.md](src/games/README.md)）。
 
 ## ドキュメント
 

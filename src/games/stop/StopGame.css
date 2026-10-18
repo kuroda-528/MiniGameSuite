@@ -1,0 +1,66 @@
+.stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.25rem;
+}
+
+.stop-score {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* バーが動く道。真ん中に目印の線がある */
+.stop-track {
+  position: relative;
+  width: min(90vw, 480px);
+  height: 48px;
+  border-radius: 8px;
+  background: #e5e7eb;
+}
+
+.stop-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: #16a34a;
+}
+
+.stop-bar {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 12px;
+  transform: translateX(-50%);
+  border-radius: 6px;
+  background: #f97316;
+}
+
+.stop-button {
+  padding: 12px 32px;
+  font-size: 1.25rem;
+}
+
+/* スマホで押しても、画面が拡大されたり文字が選択されたりしないようにする */
+.stop-stop {
+  width: 200px;
+  height: 100px;
+  border: none;
+  border-radius: 16px;
+  background: #f97316;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stop-stop:active {
+  transform: scale(0.95);
+}

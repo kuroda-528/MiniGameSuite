@@ -1,0 +1,45 @@
+.pittari {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.25rem;
+}
+
+.pittari-time,
+.pittari-rating {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* 数字が動いても横にずれないよう、数字の幅をそろえて、表示の幅も固定する */
+.pittari-time {
+  min-width: 9ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.pittari-start {
+  padding: 12px 32px;
+  font-size: 1.25rem;
+}
+
+/* スマホで押しても、画面が拡大されたり文字が選択されたりしないようにする */
+.pittari-stop {
+  width: 200px;
+  height: 200px;
+  border: none;
+  border-radius: 50%;
+  background: #dc2626;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pittari-stop:active {
+  transform: scale(0.95);
+}
