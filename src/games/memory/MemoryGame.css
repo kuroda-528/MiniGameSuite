@@ -1,0 +1,51 @@
+.memory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.25rem;
+}
+
+.memory-result {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.memory-start {
+  padding: 12px 32px;
+  font-size: 1.25rem;
+}
+
+/* 4列にならべる。スマホでは画面の幅に合わせてカードが小さくなる */
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: min(90vw, 400px);
+}
+
+/* スマホでタップしても、画面が拡大されたり文字が選択されたりしないようにする */
+.memory-card {
+  aspect-ratio: 3 / 4;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.memory-card.is-face-up {
+  background: white;
+  color: #1f2937;
+  outline: 2px solid #2563eb;
+}
+
+.memory-card.is-matched {
+  background: #bbf7d0;
+  outline-color: #16a34a;
+}
