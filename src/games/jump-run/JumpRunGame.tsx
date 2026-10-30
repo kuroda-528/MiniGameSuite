@@ -60,6 +60,8 @@ export function JumpRunGame() {
       if (e.key !== ' ' && e.key !== 'ArrowUp') return
       if (gameRef.current.status !== 'playing') return
       e.preventDefault() // ページがスクロールしないようにする
+      // 押しっぱなしのときの自動連打では、勝手にジャンプしないようにする
+      if (e.repeat) return
       gameRef.current = jump(gameRef.current)
     }
     window.addEventListener('keydown', onKeyDown)

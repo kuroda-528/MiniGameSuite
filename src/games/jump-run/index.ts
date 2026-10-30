@@ -4,8 +4,7 @@ import { JumpRunGame } from './JumpRunGame.tsx'
 register({
   id: 'jump-run',
   title: 'ジャンプでよけるラン',
-  // 仮の名前。作者のニックネームが決まったら書きかえる（本名は書かない）
-  author: 'ロブロ好きの人',
+  author: 'ロブロ好きの人', // 本名は書かない
   description: 'ジャンプで障害物をよけて、どこまで走れるかな？',
   Component: JumpRunGame,
 })
