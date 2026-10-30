@@ -4,7 +4,6 @@ import './KatanukiGame.css'
 import { drawBoard } from './drawBoard.ts'
 import {
   BOARD_SIZE,
-  MAX_STRESS,
   SHAPE_NAMES,
   TIME_LIMIT_SECONDS,
   applyMove,
@@ -210,7 +209,7 @@ function Result({ status, isLast, onNext, onRetry }: ResultProps) {
 type MeterProps = { label: string; value: number; danger?: boolean }
 
 function Meter({ label, value, danger = false }: MeterProps) {
-  const percent = Math.max(0, Math.min(MAX_STRESS, value))
+  const percent = Math.max(0, Math.min(100, value))
   return (
     <div className="katanuki-meter">
       <span className="katanuki-meter-label">{label}</span>
